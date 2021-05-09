@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>0205-v-on</title>
+  </head>
+  <body>
+    <div id="app">
+      <button @click="handleClick">Clique aqui</button>
+      <button @click="ativo = !ativo">Toggle</button>
+      <p v-if="ativo">Mostrar texto</p>
+      <a href="#interno" @click.prevent.once="handleClick">Link interno</a>
+      <br>
+      <input type="texto" @keyup.enter="handleClick">
+      <br>
+      <p @mousemove=handleMove>Esse é o mouse x:{{mouse.x}}</p>
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+    <script>
+      const vue = new Vue({
+        el: "#app",
+        data: {
+          ativo: true,
+          mouse: ""
+        },
+        methods:{
+          handleClick(event){
+            console.log(event);
+          },
+          handleMove(event){
+            this.mouse = event;
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
