@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>0203-methods</title>
+  </head>
+  <body>
+    <div id="app">
+      <div v-if="Object.keys(acoes).length">
+        <p>Empresa:{{acoes.companyName}}</p>
+        <p>Ultimo preço:{{acoes.latestPrice}}</p>
+        <p>Ultima data:{{acoes.latestTime}}</p>
+      </div>
+      <button @click="puxarAcoes">Buscar</button>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+    <script>
+      const vue = new Vue({
+        el: "#app",
+        data: {
+          acoes: {}
+        },
+        methods:{
+         puxarAcoes(){
+           fetch('https://api.origamid.dev/stock/aapl/quote')
+           .then(response => response.json())
+           .then(response => {
+             this.acoes = response;
+           });
+         }
+        }
+      });
+    </script>
+  </body>
+</html>
+
+<!--
+  Utilizando a API
+  https://api.origamid.dev/stock/aapl/quote
+
+  Crie um método que faça o fetch da resposta acima
+  O método deve ser ativado ao clique no botão Ver Preço
+
+  Coloque a resposta json do fetch em uma data e
+  mostre o valor de lalestPrice, latestTime e o
+  companyName na interface.
+-->
