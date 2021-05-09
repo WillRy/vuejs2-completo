@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>0106-template-e-diretivas</title>
+  </head>
+  <body>
+    <div id="app">
+      <h1>{{titulo}}</h1>
+      <div v-if="comprou" :style="{color:cor}">
+        <p>{{conteudo}}</p>
+        <p>{{lado*lado - lado / 100}}</p>
+        <p>{{comprou ? 'Sim' : 'Não'}}</p>
+        <input type="color" v-model="cor"> {{cor}}
+      </div>
+      <a :href="comprou ? href : ''">{{href}}</a>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+    <script>
+      const vue = new Vue({
+        el: "#app",
+        data: {
+          titulo: "Curso de JavaScript",
+          conteudo: "Esse é o conteúdo",
+          lado: 5,
+          comprou: true,
+          href: "https://www.google.com.br",
+          cor: "#084eee"
+        },
+      });
+    </script>
+  </body>
+</html>
