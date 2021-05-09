@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>0204-v-bind</title>
+    <style>
+      .maior{
+        color: green;
+      }
+      .menor{
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <div v-if="apple.companyName && google.companyName">
+        <div>
+          <p>Nome: {{apple.companyName}}</p>
+          <p :class="apple.marketCap > google.marketCap ? 'maior' : 'menor'">Valor de mercado: {{apple.marketCap}}</p>
+        </div>
+        <hr>
+        <div>
+          <p>Nome: {{google.companyName}}</p>
+          <p :class="google.marketCap > apple.marketCap ? 'maior' : 'menor'">Valor de mercado: {{google.marketCap}}</p>
+        </div>
+      </div>
+      
+      <button @click="puxarDados">Comparar ações</button>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+    <script>
+      const vue = new Vue({
+        el: "#app",
+        data: {
+          apple: {},
+          google: {},
+        },
+        methods:{
+          fetchGoogle(){
+            fetch('https://api.origamid.dev/stock/aapl/quote')
+            .then(r => r.json())
+            .then(data => {
+              this.apple = data;
+            });
+          },
+          fetchApple(){
+            fetch('https://api.origamid.dev/stock/googl/quote')
+            .then(r => r.json())
+            .then(data => {
+              this.google = data;
+            });
+          },
+          puxarDados(){
+            this.fetchGoogle();
+            this.fetchApple();
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
+<!--
+  Utilizando as API's
+  https://api.origamid.dev/stock/aapl/quote
+  https://api.origamid.dev/stock/googl/quote
+
+  - Compare o marketCap (valor de
+  mercado) entre ambas.
+
+  - Mostre o nome das empresas e o valor
+  na interace (companyName e marketCap).
+
+  - Mude a cor para verde o nome da empresa com
+  maior marketCap e vermelho a com menor.
+-->
