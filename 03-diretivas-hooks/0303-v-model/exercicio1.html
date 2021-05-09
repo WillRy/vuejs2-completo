@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>0303-v-model-parte-2</title>
+  </head>
+  <body>
+    <div id="app">
+      <div>
+        <label for="width">Width</label>
+        <input type="text" id="width" name="width" v-model="btn.width" />
+      </div>
+      <div>
+        <label for="height">Height</label>
+        <input type="text" id="height" name="height" v-model="btn.height" />
+      </div>
+      <div>
+        <label for="fontSize">fontSize</label>
+        <input type="text" name="fontSize" v-model="btn.fontSize" />
+      </div>
+      <div>
+        <label for="fontFamily">fontFamily</label>
+        <input type="text" name="fontFamily" v-model="btn.fontFamily" />
+      </div>
+      <div>
+        <label for="textAlign">textAlign</label>
+        <input type="text" name="textAlign" v-model="btn.textAlign" />
+      </div>
+      <div>
+        <label for="background">background</label>
+        <input type="color" name="background" v-model="btn.background" />
+      </div>
+      <div>
+        <label for="color">color</label>
+        <input type="color" name="color" v-model="btn.color" />
+      </div>
+      <div>
+        <label for="borderRadius">borderRadius</label>
+        <input type="text" name="borderRadius" v-model="btn.borderRadius" />
+      </div>
+      <a :style="btn" href="#">Botão</a>
+    </div>
+
+    <!-- 
+      1 - Crie um criador de botões.
+        O usuário poderá definir:
+        width,
+        height,
+        font-size,
+        font-family,
+        text-align,
+        background,
+        color,
+        border-radius,
+
+        As escolhas serão feitas em campos de
+        formulário. Cada escolha deverá ser 
+        refletida em um elemento (o botão).
+
+
+        2 - Crie um formulário com, nome, email, telefone e mensagem.
+        Ao clicar em enviar, as informações preenchidas no formulário
+        devem aparecer abaixo do mesmo. (previna o comportamento padrão do botão enviar)
+    -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+    <script>
+      const vue = new Vue({
+        el: "#app",
+        data: {
+          btn: {
+            background: "#000",
+            color: '#fff',
+            width: "100px",
+            height: "40px",
+            fontSize: "20px",
+            fontFamily: "monospace"
+          },
+        },
+      });
+    </script>
+    <style>
+      label {
+        display: block;
+      }
+      a {
+        display: block;
+        margin-top: 100px;
+        text-decoration: none;
+      }
+    </style>
+  </body>
+</html>

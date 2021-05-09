@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>0303-v-model-parte-2</title>
+  </head>
+  <body>
+    <div id="app">
+      <form>
+        <div>
+          <label for="nome">Nome</label>
+          <input type="text" name="nome" v-model="nome">
+        </div>
+        <div>
+          <label for="email">Email</label>
+          <input type="email" name="email" v-model="email">
+        </div>
+        <label for="mensagem">mensagem</label>
+        <div>
+          <textarea name="mensagem" id="mensagem" cols="30" rows="10" v-model="mensagem"></textarea>
+        </div>
+        <button @click.prevent="enviar">Enviar</button>
+      </form>
+      <hr>
+      <div v-if="Object.keys(resultado).length">
+        <h3>Dados</h3>
+        <p>Nome: {{resultado.nome}}</p>
+        <p>Email: {{resultado.email}}</p>
+        <p>Mensagem: {{resultado.mensagem}}</p>
+      </div>
+    </div>
+
+    <!-- 
+        2 - Crie um formulário com, nome, email, telefone e mensagem.
+        Ao clicar em enviar, as informações preenchidas no formulário
+        devem aparecer abaixo do mesmo. (previna o comportamento padrão do botão enviar)
+    -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+    <script>
+      const vue = new Vue({
+        el: "#app",
+        data: {
+          nome: '',
+          email: '',
+          mensagem: '',
+          resultado:{}
+        },
+        methods: {
+          enviar(){
+            this.resultado = {
+              nome: this.nome,
+              email: this.email,
+              mensagem: this.mensagem,
+            };
+          }
+        }
+      });
+    </script>
+    <style>
+      label {
+        display: block;
+      }
+    </style>
+  </body>
+</html>
