@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>0201-instancia</title>
+  </head>
+  <body>
+    <div id="app">{{ferramenta}}</div>
+    <div id="app1">{{ferramenta}}</div>
+    <div id="app2">{{instrumento}}</div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+    <script>
+      const vue = new Vue({
+        el: "#app",
+        data: {
+          ferramenta: "Martelo",
+        },
+      });
+
+      const vue1 = new Vue({
+        el: "#app1",
+        data: {
+          ferramenta: "Martelo",
+        },
+      });
+
+      const vue2 = new Vue({
+        el: "#app2",
+        data: {
+          instrumento: "Guitarra",
+        },
+      });
+    </script>
+  </body>
+</html>
