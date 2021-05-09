@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>0208-v-for</title>
+  </head>
+  <body>
+    <div id="app">
+      <h2>Lista de arrays</h2>
+      <ul>
+        <li v-for="(fruta,index) in frutas">{{fruta}}</li>
+      </ul>
+
+      <h2>Lista de objetos</h2>
+      <ul>
+        <li v-for="(estado,chave,index) in estados" :key="chave">
+          <p>{{estado.nome}}</p>
+          <p>Sigla: {{chave}}</p>
+          <p>Populacao: {{estado.populacao}}</p>
+        </li>
+      </ul>
+
+      <h2>exemplo de array com numeros</h2>
+      <div v-for="numero in 5">{{numero}}</div>
+
+      <h2>exemplo de reatividade</h2>
+      <ul>
+        <li v-for="item in lista">{{item}}</li>
+      </ul>
+      <button @click="removerItem">Remover</button>
+      <button @click="modificarItem">Modificar</button>
+      
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+    <script>
+      const vue = new Vue({
+        el: "#app",
+        data: {
+          frutas: ["Mamão", "Melancia", "Uva", "Laranja"],
+          lista: ["Item 1", "Item 2", "Item 3"],
+          estados: {
+            sp: {
+              populacao: "45 milhões",
+              nome: "São Paulo",
+            },
+            mg: {
+              populacao: "21 milhões",
+              nome: "Minas Gerais",
+            },
+            rj: {
+              populacao: "17 milhões",
+              nome: "Rio de Janeiro",
+            },
+          },
+        },
+        methods:{
+          removerItem(){
+            this.lista.pop();
+          },
+          modificarItem(){
+            this.$set(this.lista, 0,'modificado');
+            this.lista[0]='modificado'; //nao funciona reatividade
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
