@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>0302-class-style-parte-1</title>
+  </head>
+  <body>
+    <div id="app">
+      <h3>Exemplos :class</h3>
+      <p :class="cor">Texto azul</p>
+      <p :class="[cor, {ativo: estaAtivo}]">Texto azul</p>
+      <p :class="{ativo: estaAtivo, inativo:!estaAtivo, verde: elementoVerde}">
+        Mostrar texto
+      </p>
+      <button @click="estaAtivo = !estaAtivo">Ativar / Desativar</button>
+
+      <h3>Exemplos :style</h3>
+      <a href="#" :style="{background: bgColor, fontSize: tamanho+'px'}"
+        >Estilize</a
+      >
+      <button @click="tamanho++">Aumentar</button>
+
+      <p :style="estiloParagrafo">Novo texto</p>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+    <script>
+      const vue = new Vue({
+        el: "#app",
+        data: {
+          cor: "azul",
+          estaAtivo: true,
+          elementoVerde: false,
+          background: "vermelho",
+          bgColor: "tomato",
+          tamanho: 20,
+          estiloBotao: {
+            background: "tomato",
+            fontSize: "20px",
+            color: "#fff",
+          },
+        },
+        computed: {
+          estiloParagrafo() {
+            const tamanho = Math.random() * 100;
+            return {
+              fontSize: `${tamanho}px`,
+            };
+          },
+        },
+      });
+    </script>
+
+    <style>
+      .vermelho {
+        background: red;
+      }
+      .azul {
+        color: blue;
+      }
+      .verde {
+        color: green;
+      }
+      .ativo {
+        background: green;
+      }
+      .inativo {
+        background: red;
+      }
+    </style>
+  </body>
+</html>
