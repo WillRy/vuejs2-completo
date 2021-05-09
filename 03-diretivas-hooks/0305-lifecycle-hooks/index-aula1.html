@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>0305-lifecycles-hooks-parte-1</title>
+  </head>
+  <body>
+    <div id="app">
+      <hr />
+      <p>{{mensagem}}</p>
+      <p>{{dados}}</p>
+      <hr />
+      <p class="contador">contador: {{contador}}</p>
+      <button @click="contador++">Contar</button>
+      <hr />
+      <button @click="destruir">Destruir</button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+    <script>
+      const vue = new Vue({
+        el: "#app",
+        data: {
+          mensagem: "Essa é uma mensagem",
+          dados: {},
+          contador: 0,
+        },
+        methods: {
+          puxarGithub() {
+            fetch(`https://api.github.com/users/willry`)
+              .then((r) => r.json())
+              .then((dados) => {
+                this.dados = dados;
+              });
+          },
+          destruir() {
+            this.$destroy();
+          },
+        },
+        beforeCreate() {
+          console.log("beforeCreate");
+          console.log("Data:", this.mensagem);
+          console.log("Elemento:", this.$el);
+        },
+        created() {
+          console.log("created");
+          console.log("Data:", this.mensagem);
+          console.log("Elemento:", this.$el);
+          this.puxarGithub();
+        },
+        beforeMount() {
+          console.log("beforeMount");
+          console.log("Data:", this.mensagem);
+          console.log("Elemento:", this.$el);
+        },
+        mounted() {
+          console.log("mounted.");
+          console.log("Data:", this.mensagem);
+          console.log("Elemento:", this.$el);
+        },
+        beforeUpdate() {
+          console.log("beforeUpdate.");
+          console.log("Data:", this.mensagem);
+          console.log("Elemento:", this.$el);
+        },
+        updated() {
+          console.log("updated.");
+          console.log("Data:", this.mensagem);
+          console.log("Elemento:", this.$el);
+        },
+        beforeDestroy() {
+          console.log("Vai destruir");
+        },
+        destroyed() {
+          console.log("Destruiu");
+        },
+      });
+    </script>
+  </body>
+</html>
