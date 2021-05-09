@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>0209-computed-e-watch</title>
+  </head>
+  <body>
+    <div id="app">
+     <input type="text" name="cep" placeholder="CEP..." maxlength="8" v-model="cep">
+     <hr>
+     <ul>
+       <li v-for="dado,key in endereco" :key="key">
+         {{key}}: {{dado}}
+       </li>
+     </ul>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+    <script>
+      const vue = new Vue({
+        el: "#app",
+        data: {
+          cep: '',
+          endereco: {}
+        },
+        watch: {
+         cep(cep){
+          if(cep.length === 8){
+            fetch(`https://viacep.com.br/ws/${cep}/json/`)
+              .then(r => r.json())
+              .then(dados => {
+                this.endereco = dados;
+              });
+          }
+         }
+        },
+      });
+    </script>
+  </body>
+</html>
