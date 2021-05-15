@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>0503-events</title>
+  </head>
+  <body>
+    <div id="app">
+      <p>{{mensagem}}</p>
+      <p>{{totalClientes}}</p>
+      <meu-botao @evento="mostrarMensagem"></meu-botao>
+    </div>
+    <script src="https://unpkg.com/vue@2.4.4/dist/vue.js"></script>
+    <script type="module">
+      const MeuBotao = {
+        name: "MeuBotao",
+        data() {
+          return {
+            totalClientes: 200,
+          };
+        },
+        methods: {
+          handleClick() {
+            this.$emit("evento", this.totalClientes);
+          },
+        },
+        template: `
+          <button @click="handleClick">Clique</button>
+        `,
+        created() {
+          setTimeout(() => {
+            this.$emit("evento", this.totalClientes);
+          }, 1000);
+        },
+      };
+      const vue = new Vue({
+        el: "#app",
+        data: {
+          mensagem: "",
+          totalClientes: 0,
+        },
+        methods: {
+          mostrarMensagem(e) {
+            this.mensagem = "Origamid ocorreu";
+            this.totalClientes = e;
+          },
+        },
+        components: {
+          MeuBotao,
+        },
+      });
+    </script>
+  </body>
+</html>
