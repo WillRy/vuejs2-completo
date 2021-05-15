@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>0501-components-basico-parte-1</title>
+  </head>
+  <body>
+    <div id="app">
+      <botao-contador></botao-contador>
+      <hr>
+      <componente-global></componente-global>
+      <hr>
+      <componente-local></componente-local>
+      <hr>
+      <componente-local2></componente-local2>
+      
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+    <script>
+      const BotaoContador = {
+        data() {
+          return {
+            total: 0,
+          };
+        },
+        template: `<button @click="total++">Contar:{{total}}</button>`,
+      };
+      Vue.component("BotaoContador", BotaoContador);
+
+      Vue.component("ComponenteGlobal", {
+        template: `<p>Componente global</p>`,
+      });
+
+      const ComponenteLocal = {
+        name: "ComponenteLocal",
+        template: `
+          <div>
+            <p>Componente local</p>
+            <componente-global></componente-global>
+          </div>
+        `,
+      };
+      const ComponenteLocal2 = {
+        name: "ComponenteLocal2",
+        data(){
+          return {
+            contar: 30
+          }
+        },
+        computed:{
+          contarDobro(){
+            return this.contar*2;
+          }
+        },
+        template: `
+          <div>
+            <p>Componente local 2 - pragrafo 1</p>
+            <p>Componente local 2 - pragrafo 2</p>
+            <p>Contar:{{contar}}</p>
+            <p>Contar Dobro:{{contarDobro}}</p>
+          </div>
+        `,
+      };
+
+      const vue = new Vue({
+        el: "#app",
+        components: {
+          ComponenteLocal,
+          ComponenteLocal2,
+        },
+      });
+    </script>
+  </body>
+</html>
