@@ -12,11 +12,11 @@ export default {
       fetch(`http://localhost:3000${url}`)
         .then(r => r.json())
         .then(r => {
-          this.api = r;
-        })
-        .finally(() => {
-          this.loading = false;
-        })
+          setTimeout(()=>{
+            this.api = r;
+            this.loading = false;
+          },1500)
+        });
     }
   },
 }
