@@ -3,8 +3,13 @@
     <PageLoading v-if="loading"/>
     <transition mode="out-in">
       <div v-if="api">
-        <h1>Contato</h1>
-        {{ api }}
+        <h1>{{ api.titulo }}</h1>
+        <p>{{ api.descricao }}</p>
+        <ul>
+          <li><b>Email:</b> {{api.contato.email}}</li>
+          <li><b>Telefone:</b> {{api.contato.telefone}}</li>
+          <li><b>Endereço:</b> {{api.contato.endereco}}</li>
+        </ul>
       </div>
     </transition>
   </div>
@@ -12,9 +17,10 @@
 
 <script>
 import fetchData from "@/mixins/fetchData";
+
 export default {
   name: "Contato",
-  mixins:[fetchData],
+  mixins: [fetchData],
   created() {
     this.fetchData('/contato');
   }
