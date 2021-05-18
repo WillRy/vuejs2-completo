@@ -9,10 +9,11 @@
           <h2>Aulas</h2>
           <ul class="aulas">
             <li v-for="aula in api.aulas" :key="aula.id">
-              <router-link to="/">{{ aula.nome }}</router-link>
+              <router-link :to="{name:'aula',params:{aula: aula.id}}">{{ aula.nome }}</router-link>
             </li>
           </ul>
         </div>
+        <router-view></router-view>
       </div>
     </transition>
   </div>
@@ -32,12 +33,16 @@ export default {
 </script>
 
 <style scoped>
-.aulas li a{
+.aulas li a {
   display: block;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   background: #fff;
   padding: 20px;
   margin-bottom: 10px;
   border-radius: 4px;
+}
+.aulas li a.router-link-active{
+  background: #4b8;
+  color: #fff;
 }
 </style>
