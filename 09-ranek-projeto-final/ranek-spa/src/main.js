@@ -8,6 +8,12 @@ Vue.config.productionTip = false
 
 Vue.component('PaginaCarregando', PaginaCarregando);
 
+Vue.filter('numeroPreco', (valor) => {
+  const novoValor = Number(valor);
+  if(isNaN(novoValor)) return valor;
+  return novoValor.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+})
+
 new Vue({
   router,
   store,
