@@ -1,10 +1,33 @@
 <template>
-<p>Usuário Editar</p>
+  <section>
+    <UsuarioForm>
+      <button class="btn" @click.prevent="atualizarUsuario">Atualizar Usuário</button>
+    </UsuarioForm>
+  </section>
 </template>
 
 <script>
+import UsuarioForm from "../../components/UsuarioForm";
+import {api} from "../../services";
+
 export default {
-  name: "UsuarioEditar"
+  name: "UsuarioEditar",
+  components: {
+    UsuarioForm
+  },
+  methods: {
+    atualizarUsuario() {
+      const usuario = this.$store.state.usuario;
+      api.put(`/usuario/${usuario.id}`, usuario)
+        .then(() => {
+          this.$store.dispatch('getUsuario', usuario.id);
+          this.$router.push({name: 'usuario'})
+        })
+        .catch(error => {
+          console.log(error.response);
+        })
+    }
+  }
 }
 </script>
 
