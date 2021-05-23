@@ -33,13 +33,25 @@ export default {
     }
   },
   methods: {
-    formatarProduto(){
-      this.produto.usuario_id = this.$store.state.usuario.id;
+    formatarProduto() {
+      const form = new FormData();
+      form.append('nome', this.produto.nome);
+      form.append('preco', this.produto.preco);
+      form.append('descricao', this.produto.descricao);
+      form.append('vendido', this.produto.vendido);
+      form.append('usuario_id', this.$store.state.usuario.id);
+
+      const files = this.$refs.fotos.files;
+      files.forEach((file) => {
+        form.append(file.name, file);
+      });
+
+      return form;
     },
     adicionarProduto() {
-      this.formatarProduto();
+      const produto = this.formatarProduto();
       api
-        .post(`/produto`, this.produto)
+        .post(`/produto`, produto)
         .then(() => {
           this.$store.dispatch('getUsuarioProdutos');
         });
