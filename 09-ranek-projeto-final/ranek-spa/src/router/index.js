@@ -8,6 +8,8 @@ import UsuarioProdutos from "../views/usuario/UsuarioProdutos";
 import UsuarioCompras from "../views/usuario/UsuarioCompras";
 import UsuarioVendas from "../views/usuario/UsuarioVendas";
 import UsuarioEditar from "../views/usuario/UsuarioEditar";
+import store from '../store/index'
+
 
 Vue.use(VueRouter)
 
@@ -31,6 +33,9 @@ const routes = [
   {
     path: "/usuario",
     component: Usuario,
+    meta:{
+      login: true
+    },
     children:[
       {
         path: "",
@@ -66,6 +71,18 @@ const router = new VueRouter({
       behavior: 'smooth'
     })
   }
-})
+});
+
+
+router.beforeEach((to, from, next) => {
+  const login = to.matched.some((route) => route.meta.login);
+  const token = window.localStorage.getItem('token');
+  if(login && !token){
+    next('/login');
+  } else {
+    next();
+  }
+});
+
 
 export default router
