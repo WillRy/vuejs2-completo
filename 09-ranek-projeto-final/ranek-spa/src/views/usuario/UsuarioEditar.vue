@@ -18,9 +18,9 @@ export default {
   methods: {
     atualizarUsuario() {
       const usuario = this.$store.state.usuario;
-      api.put(`/usuario/${usuario.id}`, usuario)
+      api.put(`/usuario`, usuario)
         .then(() => {
-          this.$store.dispatch('getUsuario', usuario.id);
+          this.$store.dispatch('getUsuario');
           this.$router.push({name: 'usuario'})
         })
         .catch(error => {
