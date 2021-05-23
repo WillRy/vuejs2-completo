@@ -48,13 +48,18 @@ export default {
 
       return form;
     },
-    adicionarProduto() {
+    async adicionarProduto(event) {
       const produto = this.formatarProduto();
-      api
-        .post(`/produto`, produto)
-        .then(() => {
-          this.$store.dispatch('getUsuarioProdutos');
-        });
+
+      const button = event.currentTarget;
+
+      button.setAttribute('disabled','');
+      button.value = 'Adicionando...';
+
+      await api.post("/produto", produto);
+      await this.$store.dispatch('getUsuarioProdutos');
+      button.removeAttribute('disabled','');
+      button.value ='Adicionar Produto';
     }
   }
 }

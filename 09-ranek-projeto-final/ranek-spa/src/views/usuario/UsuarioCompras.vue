@@ -8,6 +8,7 @@
         </ProdutoItem>
       </div>
     </div>
+    <PaginaCarregando v-else/>
   </section>
 </template>
 

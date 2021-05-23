@@ -14,6 +14,7 @@
         </div>
       </div>
     </div>
+    <PaginaCarregando v-else/>
   </section>
 </template>
 

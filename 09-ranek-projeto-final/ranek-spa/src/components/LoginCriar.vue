@@ -26,14 +26,21 @@ export default {
     }
   },
   methods: {
-    async criarUsuario() {
+    async criarUsuario(event) {
       this.erros = [];
+      const button = event.currentTarget;
       try {
+        button.setAttribute('disabled','');
+        button.value = 'Criando...';
+        
         await this.$store.dispatch('criarUsuario', this.$store.state.usuario);
         await this.$store.dispatch('logarUsuario', this.$store.state.usuario);
         await this.$store.dispatch('getUsuario');
         this.$router.push({name: 'usuario'});
       }catch (erro){
+        button.removeAttribute('disabled','');
+        button.value ='Criar Usuário';
+        
         if(erro.response && erro.response.data.message){
           this.erros.push(erro.response.data.message)
         }else{
