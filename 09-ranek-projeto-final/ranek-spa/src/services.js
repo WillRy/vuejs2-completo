@@ -1,8 +1,23 @@
 import axios from 'axios';
 
+const apiURL = 'http://localhost:8080/wp-json';
+
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:3000'
+  baseURL: `${apiURL}/api`
 });
+
+axiosInstance.interceptors.request.use(
+  function (config){
+    const token = window.localStorage.getItem('token');
+    if(token){
+      config.headers.Authorization = token;
+    }
+    return config;
+  },
+  function (error){
+    return Promise.reject(error);
+  }
+)
 
 export const api = {
   get(endpoint) {
@@ -16,6 +31,12 @@ export const api = {
   },
   delete(endpoint) {
     return axiosInstance.delete(endpoint);
+  },
+  login(body){
+    return axios.post(`${apiURL}/jwt-auth/v1/token`, body);
+  },
+  validateToken(){
+    return axiosInstance.post(`${apiURL}/jwt-auth/v1/token/validate`);
   }
 }
 
