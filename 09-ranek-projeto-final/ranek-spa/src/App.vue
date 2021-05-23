@@ -12,13 +12,24 @@
 <script>
 import TheHeader from "./components/TheHeader";
 import TheFooter from "./components/TheFooter";
+import {api} from "./services";
 
 export default {
   name: 'app',
   components: {
     TheFooter,
     TheHeader
-
+  },
+  created() {
+    let token = window.localStorage.getItem('token');
+    if(token){
+      api.validateToken(token).then(()=>{
+        this.$store.dispatch('getUsuario');
+      }).catch(()=>{
+        window.localStorage.removeItem('token');
+        this.$router.push({name:'login'});
+      })
+    }
   }
 }
 </script>
@@ -70,6 +81,11 @@ img {
 .btn:hover {
   background: #65d;
   transform: scale(1.1);
+}
+
+.btn-disabled,.btn-disabled:hover{
+  background: #bbc;
+  transform: scale(1);
 }
 
 #app {
