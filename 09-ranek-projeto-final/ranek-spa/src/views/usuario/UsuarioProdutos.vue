@@ -45,8 +45,9 @@ export default {
   },
   created() {
     if(this.login){
-      this.getUsuarioProdutos();  
+      this.getUsuarioProdutos();
     }
+    document.title = 'Usuário';
   }
 }
 </script>

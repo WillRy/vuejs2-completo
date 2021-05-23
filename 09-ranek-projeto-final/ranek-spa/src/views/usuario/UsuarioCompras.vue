@@ -43,6 +43,7 @@ export default {
   },
   created() {
     this.getCompras();
+    document.title = 'Usuário | Compras';
   }
 }
 </script>

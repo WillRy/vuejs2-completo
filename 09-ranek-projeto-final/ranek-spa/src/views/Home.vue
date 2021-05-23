@@ -10,7 +10,10 @@ import ProdutosBuscar from "@/components/ProdutosBuscar";
 import ProdutosLista from "@/components/ProdutosLista";
 export default {
   name: 'home',
-  components: {ProdutosLista, ProdutosBuscar}
+  components: {ProdutosLista, ProdutosBuscar},
+  created() {
+    document.title = 'Ranek';
+  }
 }
 </script>
 <style scoped>

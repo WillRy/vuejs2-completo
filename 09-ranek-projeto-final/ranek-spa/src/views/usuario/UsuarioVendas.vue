@@ -49,6 +49,7 @@ export default {
   },
   created() {
     this.getVendas();
+    document.title = 'Usuário | Vendas';
   }
 }
 </script>
