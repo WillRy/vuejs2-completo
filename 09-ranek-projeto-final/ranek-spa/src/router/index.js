@@ -4,6 +4,10 @@ import Home from "../views/Home.vue"
 import Produto from "../views/Produto";
 import Login from "../views/Login";
 import Usuario from "../views/usuario/Usuario";
+import UsuarioProdutos from "../views/usuario/UsuarioProdutos";
+import UsuarioCompras from "../views/usuario/UsuarioCompras";
+import UsuarioVendas from "../views/usuario/UsuarioVendas";
+import UsuarioEditar from "../views/usuario/UsuarioEditar";
 
 Vue.use(VueRouter)
 
@@ -26,8 +30,29 @@ const routes = [
   },
   {
     path: "/usuario",
-    name: "usuario",
-    component: Usuario
+    component: Usuario,
+    children:[
+      {
+        path: "",
+        name: "usuario",
+        component: UsuarioProdutos
+      },
+      {
+        path: "compras",
+        name: "compras",
+        component: UsuarioCompras
+      },
+      {
+        path: "vendas",
+        name: "vendas",
+        component: UsuarioVendas
+      },
+      {
+        path: "editar",
+        name: "usuario-editar",
+        component: UsuarioEditar
+      }
+    ]
   },
 ]
 

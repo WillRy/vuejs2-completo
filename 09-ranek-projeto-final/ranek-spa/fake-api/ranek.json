@@ -10,6 +10,18 @@
       "numero": "25",
       "estado": "RJ",
       "cidade": "Rio de Janeiro"
+    },
+    {
+      "id": "teste@teste.com",
+      "nome": "mariana",
+      "email": "teste@teste.com",
+      "senha": "123",
+      "cep": "01001000",
+      "rua": "Praça da Sé",
+      "numero": "111",
+      "bairro": "Sé",
+      "cidade": "São Paulo",
+      "estado": "SP"
     }
   ],
   "produto": [
