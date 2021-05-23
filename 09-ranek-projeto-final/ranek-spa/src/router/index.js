@@ -8,7 +8,6 @@ import UsuarioProdutos from "../views/usuario/UsuarioProdutos";
 import UsuarioCompras from "../views/usuario/UsuarioCompras";
 import UsuarioVendas from "../views/usuario/UsuarioVendas";
 import UsuarioEditar from "../views/usuario/UsuarioEditar";
-import store from '../store/index'
 
 
 Vue.use(VueRouter)
