@@ -1,6 +1,7 @@
 <template>
   <section>
     <h2>Endereço de envio</h2>
+    <ErroNotificacao :erros="erros"/>
     <UsuarioForm>
       <button class="btn" @click.prevent="finalizarCompra">Finalizar Compra</button>
     </UsuarioForm>
@@ -17,6 +18,11 @@ export default {
   props: ['produto'],
   components: {
     UsuarioForm
+  },
+  data(){
+    return {
+      erros:[]
+    }
   },
   computed: {
     ...mapState(['usuario', 'login']),
@@ -48,11 +54,16 @@ export default {
         await this.$store.dispatch('logarUsuario', this.$store.state.usuario);
         await this.$store.dispatch('getUsuario');
         await this.criarTransacao();
-      } catch (error) {
-        console.log(error);
+      } catch (erro) {
+        if(erro.response && erro.response.data.message){
+          this.erros.push(erro.response.data.message)
+        }else{
+          this.erros.push('Não foi possível editar o perfil!');
+        }
       }
     },
     finalizarCompra() {
+      this.erros = [];
       if (this.login) {
         this.criarTransacao();
       } else {

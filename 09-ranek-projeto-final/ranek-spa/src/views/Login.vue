@@ -9,9 +9,10 @@
       <input type="password" name="senha" id="senha" v-model="login.senha">
 
       <button class="btn" @click.prevent="logar">Logar</button>
+      <ErroNotificacao :erros="erros"/>
     </form>
     <p class="perdeu">
-      <a href="/" target="_blank">Perdeu a senha? Clique aqui.</a>
+      <a href="http://localhost:8080/wp-login.php?action=lostpassword" target="_blank">Perdeu a senha? Clique aqui.</a>
     </p>
     <LoginCriar/>
   </section>
@@ -28,14 +29,22 @@ export default {
       login: {
         email: '',
         senha: '',
-      }
+      },
+      erros:[]
     }
   },
   methods: {
     logar() {
+      this.erros = [];
       this.$store.dispatch('logarUsuario',this.login).then(()=>{
         this.$store.dispatch('getUsuario');
         this.$router.push({name:'usuario'});
+      }).catch((erro) => {
+        if(erro.response && erro.response.data.message){
+          this.erros.push(erro.response.data.message)
+        }else{
+          this.erros.push('Não foi possível realizar o login!');
+        }
       });
     }
   }

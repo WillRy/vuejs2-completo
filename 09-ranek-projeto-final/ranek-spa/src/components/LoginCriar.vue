@@ -1,6 +1,7 @@
 <template>
   <section>
     <h2>Crie a Sua Conta</h2>
+    <ErroNotificacao :erros="erros"/>
     <transition mode="out-in">
       <button class="btn" @click="criar = true" v-if="!criar">Criar Conta</button>
       <UsuarioForm v-else>
@@ -20,18 +21,24 @@ export default {
   },
   data() {
     return {
-      criar: false
+      criar: false,
+      erros:[]
     }
   },
   methods: {
     async criarUsuario() {
+      this.erros = [];
       try {
         await this.$store.dispatch('criarUsuario', this.$store.state.usuario);
         await this.$store.dispatch('logarUsuario', this.$store.state.usuario);
         await this.$store.dispatch('getUsuario');
         this.$router.push({name: 'usuario'});
-      }catch (error){
-        console.log(error);
+      }catch (erro){
+        if(erro.response && erro.response.data.message){
+          this.erros.push(erro.response.data.message)
+        }else{
+          this.erros.push('Não foi possível realizar o cadastro!');
+        }
       }
     }
   }
