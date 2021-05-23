@@ -1,0 +1,55 @@
+version: "3.7"
+
+services:
+  wordpress:
+    image: wordpress:5-fpm
+    restart: always
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: root
+      WORDPRESS_DB_PASSWORD: root
+      WORDPRESS_DB_NAME: ranek
+    volumes:
+      - .:/var/www/html
+      - ./docker/wp/theme:/var/www/html/wp-content/themes/ranek
+    networks:
+      - ranek_network
+
+  nginx:
+    build: docker/nginx
+    container_name: nginx
+    entrypoint: ./docker/nginx/entrypoint.sh
+    restart: always
+    tty: true
+    ports:
+      - "8080:80"
+    environment:
+      WAIT: -wait tcp://wordpress:9000
+    volumes:
+      - .:/var/www/html
+      - "/etc/timezone:/etc/timezone:ro"
+      - "/etc/localtime:/etc/localtime:ro"
+    networks:
+      - ranek_network
+
+  db:
+    build: docker/mysql
+    command: mysqld --default-authentication-plugin=mysql_native_password
+    container_name: db
+    restart: always
+    tty: true
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./docker/dbdata:/var/lib/mysql
+      - ./docker/mysql:/docker-entrypoint-initdb.d
+      - "/etc/timezone:/etc/timezone:ro"
+      - "/etc/localtime:/etc/localtime:ro"
+    environment:
+      - MYSQL_DATABASE=ranek
+      - MYSQL_ROOT_PASSWORD=root
+    networks:
+      - ranek_network
+
+networks:
+  ranek_network:
