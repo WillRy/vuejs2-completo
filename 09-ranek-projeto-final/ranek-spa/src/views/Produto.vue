@@ -7,10 +7,13 @@
         </li>
       </ul>
       <div class="info">
-        <h1>{{produto.nome}}</h1>
-        <p class="preco">{{produto.preco | numeroPreco}}</p>
-        <p class="descricao">{{produto.descricao}}</p>
-        <button class="btn" v-if="produto.vendido ==='false'">Comprar</button>
+        <h1>{{ produto.nome }}</h1>
+        <p class="preco">{{ produto.preco | numeroPreco }}</p>
+        <p class="descricao">{{ produto.descricao }}</p>
+        <transition mode="out-in" v-if="produto.vendido ==='false'">
+          <button class="btn" v-if="!finalizar" @click="finalizar = true">Comprar</button>
+          <FinalizarCompra v-else :produto="produto"/>
+        </transition>
         <button class="btn" v-else disabled>Produto Vendido</button>
       </div>
     </div>
@@ -20,13 +23,16 @@
 
 <script>
 import {api} from "../services";
+import FinalizarCompra from "../components/FinalizarCompra";
 
 export default {
   name: "Produto",
+  components: {FinalizarCompra},
   props: ['id'],
   data() {
     return {
-      produto: null
+      produto: null,
+      finalizar: false
     }
   },
   methods: {
@@ -44,7 +50,7 @@ export default {
 </script>
 
 <style scoped>
-.produto{
+.produto {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 30px;
@@ -53,18 +59,18 @@ export default {
   margin: 0 auto;
 }
 
-.preco{
+.preco {
   color: #e80;
   font-weight: bold;
   font-size: 1.5rem;
   margin-bottom: 40px;
 }
 
-.descricao{
+.descricao {
   font-size: 1.2rem;
 }
 
-.btn{
+.btn {
   margin-top: 60px;
   width: 200px;
 }
