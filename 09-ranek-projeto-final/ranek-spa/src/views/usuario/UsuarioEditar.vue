@@ -1,14 +1,14 @@
 <template>
   <section>
-    <UsuarioForm>
-      <button class="btn" @click.prevent="atualizarUsuario">Atualizar Usuário</button>
+    <UsuarioForm @submitForm="atualizarUsuario($event)" :preload="true">
+      <button class="btn">Atualizar Usuário</button>
     </UsuarioForm>
     <ErroNotificacao :erros="erros"/>
   </section>
 </template>
 
 <script>
-import UsuarioForm from "../../components/UsuarioForm";
+import UsuarioForm from "../../components/Form/UsuarioForm";
 import {api} from "../../services";
 
 export default {
@@ -22,9 +22,8 @@ export default {
     }
   },
   methods: {
-    atualizarUsuario() {
+    atualizarUsuario(usuario) {
       this.erros = [];
-      const usuario = this.$store.state.usuario;
       api.put(`/usuario`, usuario)
         .then(() => {
           this.$store.dispatch('getUsuario');

@@ -2,11 +2,9 @@
   <section class="login">
     <h1>Login</h1>
     <form>
-      <label for="email">E-mail</label>
-      <input type="email" name="email" id="email" v-model="login.email">
+      <CustomInputModel id="email" name="email" label="E-mail" v-model="login.email"/>
 
-      <label for="senha">Senha</label>
-      <input type="password" name="senha" id="senha" v-model="login.senha">
+      <CustomInputModel id="senha" name="senha" label="Senha" type="password" v-model="login.senha"/>
 
       <button class="btn" @click.prevent="logar">Logar</button>
       <ErroNotificacao :erros="erros"/>
@@ -20,10 +18,11 @@
 
 <script>
 import LoginCriar from "../components/LoginCriar";
+import CustomInputModel from "../components/Form/CustomInputModel";
 
 export default {
   name: "Login",
-  components: {LoginCriar},
+  components: {CustomInputModel, LoginCriar},
   data() {
     return {
       login: {

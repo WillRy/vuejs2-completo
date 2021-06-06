@@ -2,14 +2,14 @@
   <section>
     <h2>Endereço de envio</h2>
     <ErroNotificacao :erros="erros"/>
-    <UsuarioForm>
-      <button class="btn" @click.prevent="finalizarCompra">Finalizar Compra</button>
+    <UsuarioForm @submitForm="finalizarCompra" :preload="true">
+      <button class="btn">Finalizar Compra</button>
     </UsuarioForm>
   </section>
 </template>
 
 <script>
-import UsuarioForm from "./UsuarioForm";
+import UsuarioForm from "./Form/UsuarioForm";
 import {api} from "../services";
 import {mapState} from "vuex";
 

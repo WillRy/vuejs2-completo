@@ -4,15 +4,15 @@
     <ErroNotificacao :erros="erros"/>
     <transition mode="out-in">
       <button class="btn" @click="criar = true" v-if="!criar">Criar Conta</button>
-      <UsuarioForm v-else>
-        <button class="btn btn-form" @click.prevent="criarUsuario">Criar Usuário</button>
+      <UsuarioForm v-else @submitForm="criarUsuario">
+        <button class="btn btn-form" ref="btn">Criar Usuário</button>
       </UsuarioForm>
     </transition>
   </section>
 </template>
 
 <script>
-import UsuarioForm from "./UsuarioForm";
+import UsuarioForm from "./Form/UsuarioForm";
 
 export default {
   name: "LoginCriar",
@@ -26,9 +26,9 @@ export default {
     }
   },
   methods: {
-    async criarUsuario(event) {
+    async criarUsuario() {
       this.erros = [];
-      const button = event.currentTarget;
+      const button = this.$refs.btn;
       try {
         button.setAttribute('disabled','');
         button.value = 'Criando...';

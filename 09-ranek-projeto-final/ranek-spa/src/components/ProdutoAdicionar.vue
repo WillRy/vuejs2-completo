@@ -1,16 +1,12 @@
 <template>
   <form class="adicionar-produto">
-    <label for="nome">Nome</label>
-    <input type="text" name="nome" id="nome" v-model="produto.nome">
+    <CustomInputModel id="nome" name="nome" label="Nome" v-model="produto.nome"/>
 
-    <label for="preco">Preco (R$)</label>
-    <input type="number" name="preco" id="preco" v-model="produto.preco">
+    <CustomInputModel id="preco" name="preco" label="Preco (R$)" v-model="produto.preco"/>
 
-    <label for="fotos">Fotos</label>
-    <input type="file" name="fotos" id="fotos" ref="fotos" multiple>
+    <CustomInputFile id="fotos" name="fotos" label="Fotos" v-model="produto.fotos"/>
 
-    <label for="descricao">Descricao</label>
-    <textarea name="descricao" id="descricao" v-model="produto.descricao"></textarea>
+    <CustomTextArea id="descricao" name="descricao" label="Descricao" v-model="produto.descricao"/>
 
     <input type="button" class="btn" value="Adicionar Produto" @click.prevent="adicionarProduto">
   </form>
@@ -18,9 +14,13 @@
 
 <script>
 import {api} from "../services";
+import CustomInputModel from "./Form/CustomInputModel";
+import CustomInputFile from "./Form/CustomInputFile";
+import CustomTextArea from "./Form/CustomTextArea";
 
 export default {
   name: "ProdutoAdicionar",
+  components: {CustomTextArea, CustomInputFile, CustomInputModel},
   data() {
     return {
       produto: {
@@ -41,7 +41,7 @@ export default {
       form.append('vendido', this.produto.vendido);
       form.append('usuario_id', this.$store.state.usuario.id);
 
-      const files = this.$refs.fotos.files;
+      const files = this.produto.fotos;
       files.forEach((file) => {
         form.append(file.name, file);
       });
@@ -68,11 +68,12 @@ export default {
 <style scoped>
 .adicionar-produto {
   display: grid;
-  grid-template-columns: 100px 1fr;
   align-items: center;
   margin-bottom: 60px;
 }
+
 .btn{
-  grid-column: 2;
+  max-width: 200px;
+  justify-self: center;
 }
 </style>
